@@ -37,10 +37,11 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Future<void> signIn(BuildContext context) async {
-    setState(() {
-      showspinner = true;
-    });
+
     if (_validateAndSaveForm()) {
+      setState(() {
+        showspinner = true;
+      });
       try {
         final auth = Provider.of<AuthBase>(context, listen: false);
         final userInfo = UserInfo(
@@ -59,6 +60,7 @@ class _LogInPageState extends State<LogInPage> {
         });
       }
     }
+
   }
 
   @override
@@ -71,6 +73,7 @@ class _LogInPageState extends State<LogInPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -84,59 +87,85 @@ class _LogInPageState extends State<LogInPage> {
                 SizedBox(
                   height: 20.0,
                 ),
-                CustomTextField(
-                  placeholder: 'First Name',
-                  errorMessage: 'First Name is Required',
-                  type: firstName,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                CustomTextField(
-                  placeholder: 'Last Name',
-                  errorMessage: 'Last Name is Required',
-                  type: lastName,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                CustomTextField(
-                  placeholder: 'Phone Number',
-                  errorMessage: 'Phone Number is Required',
-                  type: phoneNumber,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                GestureDetector(
-                  onTap: () => signIn(context),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 40.0,
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(2.0),
-                      color: const Color(0xff072ac8),
-                      border: Border.all(width: 1.0, color: const Color(0xff072ac8)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0x29000000),
-                          offset: Offset(0, 3),
-                          blurRadius: 6,
-                        )
-                      ],
+                TextFormField(
+                  onSaved: (value) => firstName = value,
+                  decoration: InputDecoration(
+                    hintText: 'First Name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
+                    focusedBorder: OutlineInputBorder(
+
+                      borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Color(0xff072ac8))),
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'First Name can not be empty';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                TextFormField(
+                  onSaved: (value) => lastName= value,
+                  decoration: InputDecoration(
+                    hintText: 'Last Name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Color(0xff072ac8))),
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'Last Name can not be empty';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                TextFormField(
+                  onSaved: (value) => phoneNumber = int.tryParse(value),
+                  decoration: InputDecoration(
+                    hintText: 'Phone Number',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                  ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Color(0xff072ac8))),
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Phone Number can not be empty';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)
+                  ),
+                  color: Color(0xff072ac8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
                     child: Text(
                       'Submit',
-                      style: TextStyle(
-                        fontFamily: 'SourceSansPro',
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                )
+                  onPressed: () => signIn(context),
+                ),
               ],
             ),
           ),
