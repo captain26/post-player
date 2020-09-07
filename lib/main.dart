@@ -6,7 +6,7 @@ import 'package:post_player/screens/login_page.dart';
 import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+void main() async{
   runApp(MyApp());
 }
 
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       create: (context) => Auth(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
+        theme: ThemeData(
+        ),
         home: LandingPage(),
       ),
     );

@@ -1,7 +1,9 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+
 
 class User {
   User({@required this.uid});
@@ -36,11 +38,13 @@ class Auth implements AuthBase {
     return _firebaseAuth.onAuthStateChanged.map(_userFromFirebase);
   }
 
+
   @override
   Future<User> signInAnonymously() async {
     final authResult = await _firebaseAuth.signInAnonymously();
     return _userFromFirebase(authResult.user);
   }
+
 
   @override
   Future<void> signOut() async {
