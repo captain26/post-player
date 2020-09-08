@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 
-class NotificationPage extends StatelessWidget {
-  static const String routeName = '/NotificationPage';
-
+class AddPhotoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: AppBar(
-          title: Text("Contacts"),
+          title: Text("Add Photo Page"),
         ),
         drawer: DrawerScreen(),
-        body: Center(child: Text("This is contacts page")));
+        body: Center(child: Text("This is Add photo page")));
   }
 }
