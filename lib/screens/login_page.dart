@@ -15,6 +15,7 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
 
+
   String firstName;
   String lastName;
   int phoneNumber;

@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:post_player/common/page_routes.dart';
 import 'package:post_player/landing.dart';
+import 'package:post_player/screens/contact.dart';
 import 'package:post_player/screens/home_page.dart';
 import 'package:post_player/screens/login_page.dart';
+import 'package:post_player/screens/notification.dart';
+import 'package:post_player/screens/setting_page.dart';
 import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +24,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
         ),
         home: LandingPage(),
+        routes:  {
+          PageRoutes.home: (context) => HomePage(),
+          PageRoutes.contact: (context) => ContactPage(),
+          PageRoutes.setting: (context) => SettingPage(),
+          PageRoutes.notification: (context) => NotificationPage(),
+        },
       ),
     );
   }

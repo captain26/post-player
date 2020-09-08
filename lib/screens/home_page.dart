@@ -6,6 +6,8 @@ import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+  static const String routeName = '/HomePage';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -14,7 +16,7 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  final GlobalKey _scaffoldKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -22,6 +24,11 @@ class _HomePageState extends State<HomePage>
 
     super.initState();
   }
+
+  void _openDrawer() {
+    _scaffoldKey.currentState.openDrawer();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +38,9 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+
         leading: FlatButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
+          onPressed: _openDrawer,
           child: Icon(
             Icons.menu,
             color: Color(0xff072ac8),
