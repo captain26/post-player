@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage>
     _scaffoldKey.currentState.openDrawer();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-
         leading: FlatButton(
           onPressed: _openDrawer,
           child: Icon(
@@ -57,8 +55,8 @@ class _HomePageState extends State<HomePage>
               'LIVE',
               style: TextStyle(color: Color(0xff072ac8), fontSize: 15.0),
             ),
-            onPressed: () async{
-              final auth = Provider.of<AuthBase>(context,listen: false);
+            onPressed: () async {
+              final auth = Provider.of<AuthBase>(context, listen: false);
               await auth.signOut();
             },
           )
@@ -81,7 +79,10 @@ class _HomePageState extends State<HomePage>
                 padding: const EdgeInsets.all(8.0),
                 child: Text('Photos'),
               ),
-              Text('Videos'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Videos'),
+              ),
             ],
             controller: _tabController,
           ),
@@ -94,8 +95,85 @@ class _HomePageState extends State<HomePage>
               controller: _tabController,
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 108,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Center(
+                    child: MyBlinkingText(),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: 75,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'assets/images/bottom_banner.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+class MyBlinkingText extends StatefulWidget {
+  @override
+  _MyBlinkingTextState createState() => _MyBlinkingTextState();
+}
+
+class _MyBlinkingTextState extends State<MyBlinkingText>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _animationController.repeat();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _animationController,
+      child: Text(
+        "TODAY\'S EXCLUSIVE",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.red,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
