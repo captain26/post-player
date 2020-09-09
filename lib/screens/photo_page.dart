@@ -1,11 +1,5 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-
-import 'dart:io';
-import 'dart:math';
 
 class PhotosPage extends StatelessWidget {
   @override
@@ -21,10 +15,6 @@ class PhotosPage extends StatelessWidget {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: getImage,
-      //   child: Icon(Icons.add_a_photo),
-      // ),
     );
   }
 
@@ -32,7 +22,7 @@ class PhotosPage extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection('images')
-          .orderBy('location')
+          .orderBy('createdOn', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData)
@@ -100,51 +90,6 @@ class PhotosPage extends StatelessWidget {
       ),
     );
   }
-
-  // Future getImage() async {
-  //   // Get image from gallery.
-  //   // ignore: deprecated_member_use
-  //   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-  //   _uploadImageToFirebase(image);
-  // }
-  //
-  // Future<void> _uploadImageToFirebase(File image) async {
-  //   try {
-  //     // Make random image name.
-  //     int randomNumber = Random().nextInt(100000);
-  //     String imageLocation = 'images/image$randomNumber.jpg';
-  //
-  //     // Upload image to firebase.
-  //     final StorageReference storageReference =
-  //         FirebaseStorage().ref().child(imageLocation);
-  //     final StorageUploadTask uploadTask = storageReference.putFile(image);
-  //     await uploadTask.onComplete;
-  //     _addPathToDatabase(imageLocation);
-  //   } catch (e) {
-  //     print(e.message);
-  //   }
-  // }
-  //
-  // Future<void> _addPathToDatabase(String text) async {
-  //   try {
-  //     // Get image URL from firebase
-  //     final ref = FirebaseStorage().ref().child(text);
-  //     var imageString = await ref.getDownloadURL();
-  //
-  //     // Add location and url to database
-  //     await Firestore.instance
-  //         .collection('images')
-  //         .document()
-  //         .setData({'url': imageString, 'location': text});
-  //   } catch (e) {
-  //     print(e.message);
-  //     showDialog(builder: (context) {
-  //       return AlertDialog(
-  //         content: Text(e.message),
-  //       );
-  //     });
-  //   }
-  // }
 }
 
 class Record {
