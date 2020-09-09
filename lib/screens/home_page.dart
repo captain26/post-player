@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 import 'package:post_player/screens/photo_page.dart';
-import 'package:post_player/screens/video_page.dart';
+import 'package:post_player/screens/video/video_page.dart';
 import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -121,20 +122,40 @@ class _HomePageState extends State<HomePage>
                   SizedBox(
                     height: 5,
                   ),
-                  Container(
-                    height: 75,
-                    width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/bottom_banner.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+                  _buildPhoto(context)
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPhoto(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance
+          .collection('bannerphoto')
+          .orderBy('createdOn', descending: true)
+          .limit(1)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return CircularProgressIndicator();
+        final photos = snapshot.data.documents;
+        String photourl;
+        for (var photo in photos) {
+          final url = photo.data['url'];
+          photourl = url;
+        }
+        return Container(
+          height: 75,
+          width: double.infinity,
+          child: Image.network(
+            photourl,
+            fit: BoxFit.fill,
+          ),
+        );
+      },
     );
   }
 }

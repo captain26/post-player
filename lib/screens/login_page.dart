@@ -15,12 +15,10 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
 
-
   String firstName;
   String lastName;
   int phoneNumber;
   bool showspinner = false;
-
 
   bool _validateAndSaveForm() {
     final form = _formKey.currentState;
@@ -32,13 +30,11 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Future<void> setData(Map<String, dynamic> data, String uid) async {
-
     final refrence = Firestore.instance.document('users/$uid');
     await refrence.setData(data);
   }
 
   Future<void> signIn(BuildContext context) async {
-
     if (_validateAndSaveForm()) {
       setState(() {
         showspinner = true;
@@ -55,13 +51,12 @@ class _LogInPageState extends State<LogInPage> {
           title: 'Sign in failed',
           exception: e,
         ).show(context);
-      }finally{
+      } finally {
         setState(() {
           showspinner = false;
         });
       }
     }
-
   }
 
   @override
@@ -96,8 +91,7 @@ class _LogInPageState extends State<LogInPage> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-
-                      borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(8.0),
                         borderSide: BorderSide(color: Color(0xff072ac8))),
                   ),
                   validator: (String value) {
@@ -111,7 +105,7 @@ class _LogInPageState extends State<LogInPage> {
                   height: 15.0,
                 ),
                 TextFormField(
-                  onSaved: (value) => lastName= value,
+                  onSaved: (value) => lastName = value,
                   decoration: InputDecoration(
                     hintText: 'Last Name',
                     border: OutlineInputBorder(
@@ -136,8 +130,8 @@ class _LogInPageState extends State<LogInPage> {
                   decoration: InputDecoration(
                     hintText: 'Phone Number',
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                  ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: BorderSide(color: Color(0xff072ac8))),
@@ -155,8 +149,7 @@ class _LogInPageState extends State<LogInPage> {
                 ),
                 FlatButton(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)
-                  ),
+                      borderRadius: BorderRadius.circular(8.0)),
                   color: Color(0xff072ac8),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -171,51 +164,6 @@ class _LogInPageState extends State<LogInPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  final String placeholder;
-  dynamic type;
-  final String errorMessage;
-
-  CustomTextField({this.placeholder, this.type,this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 42.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
-        color: const Color(0xffffffff),
-        border: Border.all(width: 0.25, color: const Color(0xff707070)),
-      ),
-      child: TextFormField(
-        onSaved: (value) => type = value,
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xff072ac8))),
-          hintText: placeholder,
-          border: InputBorder.none,
-          hintStyle: TextStyle(
-            fontFamily: 'SourceSansPro',
-            fontSize: 16,
-            color: const Color(0x80072ac8),
-          ),
-          contentPadding: const EdgeInsets.only(bottom: 8, left: 8),
-          hoverColor: Colors.grey,
-        ),
-        cursorColor: Colors.grey,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return errorMessage;
-          }
-          return null;
-        },
       ),
     );
   }
