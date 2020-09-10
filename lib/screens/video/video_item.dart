@@ -25,7 +25,8 @@ class _VideoItemState extends State<VideoItem> {
         aspectRatio: 3 / 2,
         autoInitialize: true,
         looping: widget.lopping,
-        allowFullScreen: true,
+        allowFullScreen: false,
+        materialProgressColors: ChewieProgressColors(playedColor: Color(0xff072ac8),bufferedColor: Color(0xfff3f5ff),handleColor: Color(0xff072ac8)),
         showControls: true,
         errorBuilder: (context, errorMessage) {
           return Center(
