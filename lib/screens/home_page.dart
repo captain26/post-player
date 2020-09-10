@@ -1,3 +1,4 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';

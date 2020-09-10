@@ -1,44 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AddBannerPage extends StatelessWidget {
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-
-  void _openDrawer() {
-    _scaffoldKey.currentState.openDrawer();
-  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: FlatButton(
-            onPressed: _openDrawer,
-            child: Icon(
-              Icons.menu,
-              color: Color(0xff072ac8),
-            ),
-          ),
-          title: Center(
-              child: Text(
-                'Post Player',
-                style: TextStyle(color: Color(0xff072ac8)),
-              )),
+      appBar: AppBar(
+        title: Text("Add Banner Photo"),
+      ),
+      drawer: DrawerScreen(),
+      body: Center(
+        child: RaisedButton(
+          onPressed: getImage,
+          child: Text('Upload Banner Photo'),
         ),
-        body: Center(
-          child: RaisedButton(
-            onPressed: getImage,
-            child: Text('Upload Banner Photo'),
-          ),
-        ),
+      ),
     );
   }
 }
@@ -58,7 +39,7 @@ Future<void> _uploadImageToFirebase(File image) async {
 
     // Upload image to firebase.
     final StorageReference storageReference =
-    FirebaseStorage().ref().child(imageLocation);
+        FirebaseStorage().ref().child(imageLocation);
     final StorageUploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.onComplete;
     _addPathToDatabase(imageLocation);
