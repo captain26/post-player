@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 import 'package:post_player/screens/photo_page.dart';
+import 'package:post_player/screens/video/screens/home_screen.dart';
 import 'package:post_player/screens/video/video_page.dart';
 import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage>
             child: TabBarView(
               children: [
                 PhotosPage(),
-                VideoPage(),
+                HomeScreen(),
               ],
               controller: _tabController,
             ),
@@ -100,9 +101,10 @@ class _HomePageState extends State<HomePage>
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 108,
+              height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0)),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
@@ -149,7 +151,7 @@ class _HomePageState extends State<HomePage>
           photourl = url;
         }
         return Container(
-          height: 75,
+          height: 70,
           width: double.infinity,
           child: Image.network(
             photourl,
@@ -185,7 +187,7 @@ class _MyBlinkingTextState extends State<MyBlinkingText>
       child: Text(
         "TODAY\'S EXCLUSIVE",
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 15,
           fontWeight: FontWeight.w600,
           color: Colors.red,
         ),

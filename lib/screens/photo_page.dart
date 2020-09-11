@@ -5,6 +5,7 @@ class PhotosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: Colors.grey[200],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,40 +49,51 @@ class PhotosPage extends StatelessWidget {
     return Padding(
       key: ValueKey(record.location),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(0.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0)
         ),
+        elevation: 4.0,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
-                child: Image.network(
-                  record.url,
-                  fit: BoxFit.cover,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes
-                              : null,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                    record.url,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  record.caption,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      'TITLE',
+                      style: TextStyle(fontWeight : FontWeight.w900, fontSize: 22),
+                    ),
+                    Text(
+                      record.caption,
+                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -17,29 +17,42 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return VideoItem(
-                videoPlayerController: VideoPlayerController.network(
-                    snapshot.data[index].data['url']),
-                comment: snapshot.data[index].data['comment'],
-              );
-            },
-          );
-        }
-      },
+  Widget build(BuildContext context){
+    return ListView(
+      children: [
+        VideoItem(
+          url: 'PTm4GHbhG4M',
+          comment: 'La La Land ',
+        ),
+      ],
     );
+
   }
+  //
+  // @override
+  // Widget build(BuildContext context) {
+  //   return FutureBuilder(
+  //     future: getData(),
+  //     builder: (context, snapshot) {
+  //       if (snapshot.connectionState == ConnectionState.waiting) {
+  //         return Center(
+  //           child: CircularProgressIndicator(),
+  //         );
+  //       } else {
+  //         return ListView.builder(
+  //           itemCount: snapshot.data.length,
+  //           itemBuilder: (context, index) {
+  //             return VideoItem(
+  //               videoPlayerController: VideoPlayerController.network(
+  //                   snapshot.data[index].data['url']),
+  //               comment: snapshot.data[index].data['comment'],
+  //             );
+  //           },
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 }
 // ListView(
 // children: [
