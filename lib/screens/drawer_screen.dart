@@ -88,7 +88,7 @@ Widget createDrawerHeader() {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(20),
-    color: Color(0xFF4F51C0),
+    color: Color(0xFF394989),
     child: Center(
       child: Column(
         children: <Widget>[

@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 String _caption;
+String _title;
 
 class AddPhotoPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -15,7 +16,15 @@ class AddPhotoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Photo Page"),
+        title: Text(
+          "Add Photo Page",
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+          ),
+        ),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Color(0xFF394989),
       ),
       drawer: DrawerScreen(),
       body: Container(
@@ -26,6 +35,35 @@ class AddPhotoPage extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
+              SizedBox(
+                height: 30,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'Title',
+                  contentPadding:
+                      EdgeInsets.only(top: 25, bottom: 25, left: 20),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.8),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(width: 0, color: Colors.black),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(width: 2, color: Colors.blue),
+                  ),
+                ),
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return 'Title is Required';
+                  }
+                  return null;
+                },
+                onSaved: (String value) {
+                  _title = value;
+                },
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -66,7 +104,12 @@ class AddPhotoPage extends StatelessWidget {
                   _formKey.currentState.save();
                   getImage();
                 },
-                child: Text('Upload Photo'),
+                child: Text(
+                  'Upload Photo',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                  ),
+                ),
               ),
             ],
           ),
@@ -108,6 +151,7 @@ Future<void> _addPathToDatabase(String text) async {
       'url': imageString,
       'location': text,
       'caption': _caption,
+      'title': _title,
       'createdOn': FieldValue.serverTimestamp()
     });
   } catch (e) {
