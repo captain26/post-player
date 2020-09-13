@@ -5,7 +5,7 @@ class PhotosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[200],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +40,7 @@ class PhotosPage extends StatelessWidget {
     return ListView(
         padding: const EdgeInsets.only(top: 20.0),
         children:
-        snapshot.map((data) => _buildListItem(context, data)).toList());
+            snapshot.map((data) => _buildListItem(context, data)).toList());
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
@@ -50,9 +50,8 @@ class PhotosPage extends StatelessWidget {
       key: ValueKey(record.location),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0)
-        ),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         elevation: 4.0,
         child: SingleChildScrollView(
           child: Column(
@@ -72,7 +71,7 @@ class PhotosPage extends StatelessWidget {
                           child: CircularProgressIndicator(
                             value: loadingProgress.expectedTotalBytes != null
                                 ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes
+                                    loadingProgress.expectedTotalBytes
                                 : null,
                           ),
                         ),
@@ -86,12 +85,18 @@ class PhotosPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'TITLE',
-                      style: TextStyle(fontWeight : FontWeight.w900, fontSize: 22),
+                      record.title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                          fontFamily: 'Montserrat'),
                     ),
                     Text(
                       record.caption,
-                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                          fontFamily: 'Montserrat'),
                     ),
                   ],
                 ),
@@ -108,6 +113,7 @@ class Record {
   final String location;
   final String url;
   final String caption;
+  final String title;
   final DocumentReference reference;
 
   Record.fromMap(Map<String, dynamic> map, {this.reference})
@@ -115,11 +121,12 @@ class Record {
         assert(map['url'] != null),
         location = map['location'],
         url = map['url'],
-        caption = map['caption'];
+        caption = map['caption'],
+        title = map['title'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
-  String toString() => "Record<$location:$url:$caption>";
+  String toString() => "Record<$location:$url:$caption:$title>";
 }

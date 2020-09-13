@@ -1,5 +1,4 @@
- import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart';
 import 'package:post_player/screens/video/models/channel_model.dart';
 import 'package:post_player/screens/video/models/video_model.dart';
 import 'package:post_player/screens/video/screens/video_screen.dart';

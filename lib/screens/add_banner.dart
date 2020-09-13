@@ -11,13 +11,26 @@ class AddBannerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Add Banner Photo"),
+        title: Text(
+          "Add Banner Photo",
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+          ),
+        ),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Color(0xFF394989),
       ),
       drawer: DrawerScreen(),
       body: Center(
         child: RaisedButton(
           onPressed: getImage,
-          child: Text('Upload Banner Photo'),
+          child: Text(
+            'Upload Banner Photo',
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+            ),
+          ),
         ),
       ),
     );

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 import 'package:post_player/screens/photo_page.dart';
 import 'package:post_player/screens/video/screens/home_screen.dart';
-import 'package:post_player/screens/video/video_page.dart';
 import 'package:post_player/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,7 @@ class _HomePageState extends State<HomePage>
         title: Center(
             child: Text(
           'Post Player',
-          style: TextStyle(color: Color(0xff072ac8)),
+          style: TextStyle(color: Color(0xff072ac8), fontFamily: 'Montserrat'),
         )),
         actions: [
           FlatButton(
@@ -73,18 +72,24 @@ class _HomePageState extends State<HomePage>
             unselectedLabelColor: Colors.black87,
             labelStyle: TextStyle(
                 fontSize: 20,
-                fontFamily: 'SourceSansPro',
+                fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w700),
             unselectedLabelStyle:
                 TextStyle(fontSize: 20, fontFamily: 'SourceSansPro'),
             tabs: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Photos'),
+                child: Text(
+                  'Photos',
+                  style: TextStyle(fontFamily: 'Montserrat'),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Videos'),
+                child: Text(
+                  'Videos',
+                  style: TextStyle(fontFamily: 'Montserrat'),
+                ),
               ),
             ],
             controller: _tabController,
@@ -104,7 +109,9 @@ class _HomePageState extends State<HomePage>
               height: 100,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
@@ -151,7 +158,7 @@ class _HomePageState extends State<HomePage>
           photourl = url;
         }
         return Container(
-          height: 70,
+          height: 72,
           width: double.infinity,
           child: Image.network(
             photourl,
