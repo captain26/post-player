@@ -9,7 +9,7 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
+      child: ListView(
         children: <Widget>[
           createDrawerHeader(),
           SizedBox(
@@ -70,13 +70,33 @@ class DrawerScreen extends StatelessWidget {
               );
             },
           ),
-          Spacer(),
+          SizedBox(height: 280,),
           ListTile(
             title: Align(
               alignment: Alignment.bottomCenter,
-              child: Text('App version 1.0.0'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.22,
+                    child: Text(
+                      'Designed By : ',
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'Montserrat'
+                      ),
+                    ),
+                  ),
+                  Opacity(
+                    opacity: 0.1,
+                    child: ImageIcon(
+                      AssetImage('assets/images/dev.png'),
+                      size: 70.0,
+                    ),
+                  )
+                ],
+              ),
             ),
-            onTap: () {},
           ),
         ],
       ),
@@ -88,7 +108,7 @@ Widget createDrawerHeader() {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(20),
-    color: Color(0xFF394989),
+    color: Color(0xfff3f5ff),
     child: Center(
       child: Column(
         children: <Widget>[
@@ -102,7 +122,7 @@ Widget createDrawerHeader() {
                   borderRadius: BorderRadius.circular(150),
                 ),
                 child: Image.asset(
-                  'assets/images/logo.jpg',
+                  'assets/images/logo.png',
                   fit: BoxFit.fill,
                 ),
               ),
@@ -123,6 +143,7 @@ Widget createDrawerBodyItem(
         Icon(
           icon,
           size: 22,
+          color: Colors.amberAccent[400],
         ),
         Padding(
           padding: EdgeInsets.only(left: 12.0),
@@ -130,6 +151,7 @@ Widget createDrawerBodyItem(
             text,
             style: TextStyle(
               fontSize: 18,
+                fontFamily: 'Montserrat'
             ),
           ),
         )

@@ -65,8 +65,9 @@ class _VideoScreenState extends State<VideoScreen> {
             padding: const EdgeInsets.all(12.0),
             child: YoutubePlayer(
               controller: _controller,
-              progressIndicatorColor: Color(0xff072ac8) ,
-              progressColors: ProgressBarColors(playedColor: Colors.black,bufferedColor: Color(0xfff3f5ff),handleColor: Color(0xff072ac8)),
+              liveUIColor: Color(0xff072ac8),
+              showVideoProgressIndicator: true,
+              progressColors: ProgressBarColors(handleColor: Color(0xff072ac8),playedColor: Color(0xff072ac8)),
               onReady: () {
                 print('Player is ready.');
               },

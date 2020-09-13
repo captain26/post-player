@@ -3,23 +3,29 @@ import 'package:post_player/screens/drawer_screen.dart';
 
 class ContactPage extends StatelessWidget {
   static const String routeName = '/ContactPage';
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+  void _openDrawer() {
+    _scaffoldKey.currentState.openDrawer();
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Color(0xFF394989),
-      appBar: AppBar(
-        title: Text(
-          "Contact Us",
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xFF394989),
-      ),
+      backgroundColor: Colors.white,
       drawer: DrawerScreen(),
+      appBar:  AppBar(
+      title: Text(
+      'Contact Us',
+      style: TextStyle(
+        fontFamily: 'Montserrat',
+      ),
+    ),
+    elevation: 0,
+    centerTitle: true,
+    backgroundColor: Color(0xff072ac8),
+    ),
       body: ListView(
         children: [
           SizedBox(
@@ -31,7 +37,7 @@ class ContactPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 40,
                 fontFamily: 'Montserrat',
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -50,7 +56,7 @@ class ContactPage extends StatelessWidget {
                 Icon(
                   Icons.account_circle,
                   size: 30,
-                  color: Colors.white,
+                  color: Colors.amberAccent[400],
                 ),
                 SizedBox(
                   width: 10,
@@ -61,7 +67,7 @@ class ContactPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Montserrat',
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -78,7 +84,7 @@ class ContactPage extends StatelessWidget {
                 Icon(
                   Icons.call,
                   size: 30,
-                  color: Colors.white,
+                  color: Colors.amberAccent[400],
                 ),
                 SizedBox(
                   width: 10,
@@ -88,7 +94,7 @@ class ContactPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 25,
                     fontFamily: 'Montserrat',
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -104,7 +110,7 @@ class ContactPage extends StatelessWidget {
                 Icon(
                   Icons.mail,
                   size: 30,
-                  color: Colors.white,
+                  color:Colors.amberAccent[400],
                 ),
                 SizedBox(
                   width: 10,
@@ -115,7 +121,7 @@ class ContactPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22,
                       fontFamily: 'Montserrat',
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -132,7 +138,7 @@ class ContactPage extends StatelessWidget {
                 Icon(
                   Icons.location_on,
                   size: 30,
-                  color: Colors.white,
+                  color: Colors.amberAccent[400],
                 ),
                 SizedBox(
                   width: 10,
@@ -143,7 +149,7 @@ class ContactPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Montserrat',
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),

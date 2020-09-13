@@ -55,6 +55,8 @@ class PhotosPage extends StatelessWidget {
         elevation: 4.0,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+
             children: <Widget>[
               Container(
                 child: Padding(
@@ -83,13 +85,17 @@ class PhotosPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       record.title,
                       style: TextStyle(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w700,
                           fontSize: 20,
                           fontFamily: 'Montserrat'),
+                    ),
+                    SizedBox(
+                      height: 8.0,
                     ),
                     Text(
                       record.caption,

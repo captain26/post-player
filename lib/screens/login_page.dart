@@ -59,108 +59,196 @@ class _LogInPageState extends State<LogInPage> {
     }
   }
 
+  Future<void> skipSignIn() async {
+    setState(() {
+      showspinner = true;
+    });
+    try {
+      final auth = Provider.of<AuthBase>(context, listen: false);
+      await auth.signInAnonymously();
+    } on PlatformException catch (e) {
+      PlatformExceptionAlertDialog(
+        title: 'Sign in failed',
+        exception: e,
+      ).show(context);
+    }finally{
+      setState(() {
+        showspinner = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: showspinner,
       child: Scaffold(
-        body: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Log In',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 35.0,
-                      color: Color(0xff072ac8),
-                      fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextFormField(
-                  onSaved: (value) => firstName = value,
-                  decoration: InputDecoration(
-                    hintText: 'First Name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 40.0,right: 40.0,),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Log In',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 35.0,
+                                color: Color(0xff072ac8),
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            onSaved: (value) => firstName = value,
+                            decoration: InputDecoration(
+                              hintText: 'First Name',
+                              hintStyle: TextStyle(
+                                  fontFamily: 'Montserrat',
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Color(0xff072ac8))),
+
+                            ),
+                            cursorColor: Color(0xff072ac8),
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return 'First Name can not be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          TextFormField(
+                            onSaved: (value) => lastName = value,
+                            decoration: InputDecoration(
+                              hintText: 'Last Name',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Color(0xff072ac8))),
+                            ),
+                            cursorColor: Color(0xff072ac8),
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return 'Last Name can not be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          TextFormField(
+                            onSaved: (value) => phoneNumber = int.tryParse(value),
+                            decoration: InputDecoration(
+                              hintText: 'Phone Number',
+                              hintStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Color(0xff072ac8))),
+                            ),
+                            cursorColor: Color(0xff072ac8),
+
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Phone Number can not be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0)),
+                            color: Color(0xff072ac8),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                'Submit',
+                                style: TextStyle(color: Colors.white,fontFamily: 'Montserrat'),
+                              ),
+                            ),
+                            onPressed: () => signIn(context),
+                          ),
+                        ],
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Opacity(
+                        opacity: 0.22,
+                        child: Text(
+                          'Designed By : ',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                            fontSize: 15.0
+                          ),
+                        ),
+                      ),
+                      Opacity(
+                        opacity: 0.1,
+                        child: ImageIcon(
+                          AssetImage('assets/images/dev.png'),
+                          size: 70.0,
+                        ),
+                      )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      height: 35,
+                      margin: EdgeInsets.only(right: 40.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xff072ac8), width: 1.25),
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Color(0xff072ac8))),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'First Name can not be empty';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                TextFormField(
-                  onSaved: (value) => lastName = value,
-                  decoration: InputDecoration(
-                    hintText: 'Last Name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Color(0xff072ac8))),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Last Name can not be empty';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                TextFormField(
-                  onSaved: (value) => phoneNumber = int.tryParse(value),
-                  decoration: InputDecoration(
-                    hintText: 'Phone Number',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Color(0xff072ac8))),
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Phone Number can not be empty';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                FlatButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                  color: Color(0xff072ac8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white),
+                      ),
+                      child: FlatButton(
+                        child: Text(
+                          'Skip',
+                          style:
+                              TextStyle(color: Color(0xff072ac8), fontSize: 15.0,fontFamily: 'Montserrat'),
+                        ),
+                        onPressed: skipSignIn,
+                      ),
                     ),
                   ),
-                  onPressed: () => signIn(context),
-                ),
-              ],
+
+                ],
+              ),
             ),
           ),
         ),

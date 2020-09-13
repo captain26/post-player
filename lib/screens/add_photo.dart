@@ -24,94 +24,117 @@ class AddPhotoPage extends StatelessWidget {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Color(0xFF394989),
+        backgroundColor: Color(0xff072ac8),
       ),
       drawer: DrawerScreen(),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Title',
-                  contentPadding:
-                      EdgeInsets.only(top: 25, bottom: 25, left: 20),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.8),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(width: 0, color: Colors.black),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 100,),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Title',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Color(0xff072ac8))),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(width: 2, color: Colors.blue),
+                  cursorColor: Color(0xff072ac8),
+
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'Title is Required';
+                    }
+                    return null;
+                  },
+                  onSaved: (String value) {
+                    _title = value;
+                  },
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Captain',
+                    hintStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide(color: Color(0xff072ac8))),
+                  ),
+                  cursorColor: Color(0xff072ac8),
+
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'Caption is Required';
+                    }
+                    return null;
+                  },
+                  onSaved: (String value) {
+                    _caption = value;
+                  },
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                FlatButton(
+                  onPressed: () {
+                    if (!_formKey.currentState.validate()) {
+                      return;
+                    }
+                    _formKey.currentState.save();
+                    getImage();
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: Color(0xff072ac8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(
+                      'Upload Photo',
+                      style: TextStyle(color: Colors.white,fontFamily: 'Montserrat'),
+                    ),
                   ),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'Title is Required';
-                  }
-                  return null;
-                },
-                onSaved: (String value) {
-                  _title = value;
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Caption',
-                  contentPadding:
-                      EdgeInsets.only(top: 25, bottom: 25, left: 20),
-                  filled: true,
-                  fillColor: Colors.white.withOpacity(0.8),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(width: 0, color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(width: 2, color: Colors.blue),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Opacity(
+                      opacity: 0.22,
+                      child: Text(
+                        'Designed By : ',
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            fontFamily: 'Montserrat'
+                        ),
+                      ),
+                    ),
+                    Opacity(
+                      opacity: 0.1,
+                      child: ImageIcon(
+                        AssetImage('assets/images/dev.png'),
+                        size: 70.0,
+                      ),
+                    )
+                  ],
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'Caption is Required';
-                  }
-                  return null;
-                },
-                onSaved: (String value) {
-                  _caption = value;
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              RaisedButton(
-                onPressed: () {
-                  if (!_formKey.currentState.validate()) {
-                    return;
-                  }
-                  _formKey.currentState.save();
-                  getImage();
-                },
-                child: Text(
-                  'Upload Photo',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

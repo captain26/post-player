@@ -65,15 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  '${_channel.subscriberCount} subscribers',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
+                // Text(
+                //   '${_channel.subscriberCount} subscribers',
+                //   style: TextStyle(
+                //     color: Colors.grey[600],
+                //     fontSize: 16.0,
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                //   overflow: TextOverflow.ellipsis,
+                // ),
               ],
             ),
           )

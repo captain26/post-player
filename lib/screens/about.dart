@@ -7,17 +7,17 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Color(0xFF394989),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "About Us",
+          'About Us',
           style: TextStyle(
             fontFamily: 'Montserrat',
           ),
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Color(0xFF394989),
+        backgroundColor: Color(0xff072ac8),
       ),
       drawer: DrawerScreen(),
       body: ListView(
@@ -35,7 +35,7 @@ class AboutPage extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Montserrat',
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'Montserrat',
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.justify,
                 ),
@@ -66,7 +66,7 @@ class AboutPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'Montserrat',
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.justify,
                 ),
@@ -78,7 +78,7 @@ class AboutPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontFamily: 'Montserrat',
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.justify,
                 ),

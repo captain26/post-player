@@ -19,19 +19,50 @@ class AddBannerPage extends StatelessWidget {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Color(0xFF394989),
+        backgroundColor: Color(0xff072ac8),
       ),
       drawer: DrawerScreen(),
-      body: Center(
-        child: RaisedButton(
-          onPressed: getImage,
-          child: Text(
-            'Upload Banner Photo',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: FlatButton(
+              onPressed: getImage,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0)),
+              color: Color(0xff072ac8),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  'Upload Banner Photo',
+                  style: TextStyle(color: Colors.white,fontFamily: 'Montserrat'),
+                ),
+              ),
             ),
           ),
-        ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Opacity(
+                opacity: 0.22,
+                child: Text(
+                  'Designed By : ',
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      fontFamily: 'Montserrat'
+                  ),
+                ),
+              ),
+              Opacity(
+                opacity: 0.1,
+                child: ImageIcon(
+                  AssetImage('assets/images/dev.png'),
+                  size: 70.0,
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -41,7 +72,7 @@ Future getImage() async {
   // Get image from gallery.
   // ignore: deprecated_member_use
   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-  _uploadImageToFirebase(image);
+  await _uploadImageToFirebase(image);
 }
 
 Future<void> _uploadImageToFirebase(File image) async {
