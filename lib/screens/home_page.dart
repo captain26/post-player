@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage>
       key: _scaffoldKey,
       drawer: DrawerScreen(),
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white,
         leading: FlatButton(
@@ -46,11 +47,10 @@ class _HomePageState extends State<HomePage>
             color: Color(0xff072ac8),
           ),
         ),
-        title: Center(
-            child: Text(
+        title: Text(
           'Post Player',
           style: TextStyle(color: Color(0xff072ac8), fontFamily: 'Montserrat'),
-        )),
+        ),
         actions: [
           FlatButton(
             child: Text(
