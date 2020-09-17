@@ -5,7 +5,7 @@ class PhotosPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.transparent,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +38,6 @@ class PhotosPage extends StatelessWidget {
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return ListView(
-        padding: const EdgeInsets.only(top: 20.0),
         children:
             snapshot.map((data) => _buildListItem(context, data)).toList());
   }
@@ -56,7 +55,6 @@ class PhotosPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: <Widget>[
               Container(
                 child: Padding(

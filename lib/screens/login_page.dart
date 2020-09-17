@@ -30,8 +30,8 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Future<void> setData(Map<String, dynamic> data, String uid) async {
-    final refrence = Firestore.instance.document('users/$uid');
-    await refrence.setData(data);
+    final reference = Firestore.instance.document('users/$uid');
+    await reference.setData(data);
   }
 
   Future<void> signIn(BuildContext context) async {
@@ -71,7 +71,7 @@ class _LogInPageState extends State<LogInPage> {
         title: 'Sign in failed',
         exception: e,
       ).show(context);
-    }finally{
+    } finally {
       setState(() {
         showspinner = false;
       });
@@ -94,7 +94,9 @@ class _LogInPageState extends State<LogInPage> {
                     key: _formKey,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 40.0,right: 40.0,),
+                        left: 40.0,
+                        right: 40.0,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -115,15 +117,15 @@ class _LogInPageState extends State<LogInPage> {
                             decoration: InputDecoration(
                               hintText: 'First Name',
                               hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                fontFamily: 'Montserrat',
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Color(0xff072ac8))),
-
+                                  borderSide:
+                                      BorderSide(color: Color(0xff072ac8))),
                             ),
                             cursorColor: Color(0xff072ac8),
                             validator: (String value) {
@@ -148,7 +150,8 @@ class _LogInPageState extends State<LogInPage> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Color(0xff072ac8))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xff072ac8))),
                             ),
                             cursorColor: Color(0xff072ac8),
                             validator: (String value) {
@@ -162,7 +165,8 @@ class _LogInPageState extends State<LogInPage> {
                             height: 15.0,
                           ),
                           TextFormField(
-                            onSaved: (value) => phoneNumber = int.tryParse(value),
+                            onSaved: (value) =>
+                                phoneNumber = int.tryParse(value),
                             decoration: InputDecoration(
                               hintText: 'Phone Number',
                               hintStyle: TextStyle(
@@ -173,10 +177,11 @@ class _LogInPageState extends State<LogInPage> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Color(0xff072ac8))),
+                                  borderSide:
+                                      BorderSide(color: Color(0xff072ac8))),
                             ),
                             cursorColor: Color(0xff072ac8),
-
+                            maxLength: 10,
                             keyboardType: TextInputType.number,
                             validator: (value) {
                               if (value.isEmpty) {
@@ -196,7 +201,9 @@ class _LogInPageState extends State<LogInPage> {
                               padding: const EdgeInsets.all(12.0),
                               child: Text(
                                 'Submit',
-                                style: TextStyle(color: Colors.white,fontFamily: 'Montserrat'),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Montserrat'),
                               ),
                             ),
                             onPressed: () => signIn(context),
@@ -205,48 +212,28 @@ class _LogInPageState extends State<LogInPage> {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Opacity(
-                        opacity: 0.22,
-                        child: Text(
-                          'Designed By : ',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                            fontSize: 15.0
-                          ),
-                        ),
-                      ),
-                      Opacity(
-                        opacity: 0.1,
-                        child: ImageIcon(
-                          AssetImage('assets/images/dev.png'),
-                          size: 70.0,
-                        ),
-                      )
-                    ],
-                  ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Container(
                       height: 35,
-                      margin: EdgeInsets.only(right: 40.0),
+                      margin: EdgeInsets.only(right: 40.0, top: 20),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff072ac8), width: 1.25),
+                        border:
+                            Border.all(color: Color(0xff072ac8), width: 1.25),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: FlatButton(
                         child: Text(
                           'Skip',
-                          style:
-                              TextStyle(color: Color(0xff072ac8), fontSize: 15.0,fontFamily: 'Montserrat'),
+                          style: TextStyle(
+                              color: Color(0xff072ac8),
+                              fontSize: 15.0,
+                              fontFamily: 'Montserrat'),
                         ),
                         onPressed: skipSignIn,
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
