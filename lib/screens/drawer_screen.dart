@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:post_player/common/page_routes.dart';
 import 'package:post_player/screens/about.dart';
@@ -5,11 +7,53 @@ import 'package:post_player/screens/contact.dart';
 import 'package:post_player/screens/add_banner.dart';
 import 'package:post_player/screens/add_photo.dart';
 
-class DrawerScreen extends StatelessWidget {
+class DrawerScreen extends StatefulWidget {
+  @override
+  _DrawerScreenState createState() => _DrawerScreenState();
+}
+
+class _DrawerScreenState extends State<DrawerScreen> {
+  bool show;
+  int phoneNumber;
+
+  Future<void> getDataAndCheckUser() async {
+    var firebaseUser = await FirebaseAuth.instance.currentUser();
+    if (firebaseUser != null) {
+      await Firestore.instance
+          .collection("users")
+          .document(firebaseUser.uid)
+          .get()
+          .then((value) {
+        print(value.data);
+        phoneNumber = value.data['Phone Number'];
+      });
+      print(phoneNumber);
+      if (phoneNumber == 0002051970) {
+        setState(() {
+          show = true;
+        });
+      } else {
+        setState(() {
+          show = false;
+        });
+      }
+    } else {
+      setState(() {
+        show = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getDataAndCheckUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: <Widget>[
           createDrawerHeader(),
           SizedBox(
@@ -46,56 +90,47 @@ class DrawerScreen extends StatelessWidget {
             },
           ),
           Divider(),
-          createDrawerBodyItem(
-            icon: Icons.add,
-            text: 'Add a Photo',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddPhotoPage(),
-                ),
-              );
-            },
-          ),
-          createDrawerBodyItem(
-            icon: Icons.add,
-            text: 'Add a Banner',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddBannerPage(),
-                ),
-              );
-            },
-          ),
-          SizedBox(height: 280,),
-          ListTile(
-            title: Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Opacity(
-                    opacity: 0.22,
-                    child: Text(
-                      'Designed By : ',
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'Montserrat'
-                      ),
-                    ),
+          if (show == true)
+            createDrawerBodyItem(
+              icon: Icons.add,
+              text: 'Add a Photo',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPhotoPage(),
                   ),
-                  Opacity(
-                    opacity: 0.1,
-                    child: ImageIcon(
-                      AssetImage('assets/images/dev.png'),
-                      size: 70.0,
-                    ),
-                  )
-                ],
-              ),
+                );
+              },
+            ),
+          if (show == true)
+            createDrawerBodyItem(
+              icon: Icons.add,
+              text: 'Add a Banner',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddBannerPage(),
+                  ),
+                );
+              },
+            ),
+          Spacer(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              children: [
+                Text(
+                  'App version 1.0.0',
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+              ],
             ),
           ),
         ],
@@ -108,7 +143,15 @@ Widget createDrawerHeader() {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(20),
-    color: Color(0xfff3f5ff),
+    // color: Color(0xfff3f5ff),
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/images/backimage.jpeg"),
+        fit: BoxFit.cover,
+        colorFilter: ColorFilter.mode(
+            Colors.transparent.withOpacity(0.4), BlendMode.srcOver),
+      ),
+    ),
     child: Center(
       child: Column(
         children: <Widget>[
@@ -149,10 +192,7 @@ Widget createDrawerBodyItem(
           padding: EdgeInsets.only(left: 12.0),
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 18,
-                fontFamily: 'Montserrat'
-            ),
+            style: TextStyle(fontSize: 18, fontFamily: 'Montserrat'),
           ),
         )
       ],

@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:post_player/screens/drawer_screen.dart';
 import 'package:post_player/screens/photo_page.dart';
 import 'package:post_player/screens/video/screens/home_screen.dart';
-import 'package:post_player/services/auth.dart';
-import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/HomePage';
@@ -23,121 +22,173 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     _tabController = new TabController(length: 2, vsync: this);
-
     super.initState();
-  }
-
-  void _openDrawer() {
-    _scaffoldKey.currentState.openDrawer();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: DrawerScreen(),
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: FlatButton(
-          onPressed: _openDrawer,
-          child: Icon(
-            Icons.menu,
-            color: Color(0xff072ac8),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/backimage.jpeg"),
+          fit: BoxFit.cover,
         ),
-        title: Text(
-          'Post Player',
-          style: TextStyle(color: Color(0xff072ac8), fontFamily: 'Montserrat'),
-        ),
-        actions: [
-          FlatButton(
-            child: Text(
-              'LIVE',
-              style: TextStyle(color: Color(0xff072ac8), fontSize: 15.0),
-            ),
-            onPressed: () async {
-              final auth = Provider.of<AuthBase>(context, listen: false);
-              await auth.signOut();
-            },
-          )
-        ],
       ),
-      body: Column(
-        children: [
-          TabBar(
-            indicator: BoxDecoration(color: Color(0xfff3f5ff)),
-            labelColor: Color(0xff072ac8),
-            unselectedLabelColor: Colors.black87,
-            labelStyle: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w700),
-            unselectedLabelStyle:
-                TextStyle(fontSize: 20, fontFamily: 'SourceSansPro'),
-            tabs: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Photos',
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Videos',
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                ),
-              ),
-            ],
-            controller: _tabController,
-          ),
-          Expanded(
-            child: TabBarView(
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Colors.transparent.withOpacity(0.4),
+        drawer: DrawerScreen(),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                PhotosPage(),
-                HomeScreen(),
+                SizedBox(
+                  width: 1,
+                ),
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 50,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          'Post Player',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                        Text(
+                          'Jhansi Post Exclusive',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.white,
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    launch('https://www.facebook.com/creativedheeraj/live/');
+                  },
+                  child: Image.asset(
+                    'assets/images/live.png',
+                    height: 22,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            TabBar(
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white,
+              ),
+              indicatorSize: TabBarIndicatorSize.label,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.white,
+              labelStyle: TextStyle(
+                  fontSize: 17,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w700),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 17,
+                fontFamily: 'Montserrat',
+              ),
+              tabs: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 13,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 1, color: Colors.white),
+                  ),
+                  child: Text(
+                    'Photos',
+                    style: TextStyle(fontFamily: 'Montserrat'),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 13,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 1, color: Colors.white),
+                  ),
+                  child: Text(
+                    'Videos',
+                    style: TextStyle(fontFamily: 'Montserrat'),
+                  ),
+                ),
               ],
               controller: _tabController,
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
-              ),
-              child: Column(
+            SizedBox(
+              height: 18,
+            ),
+            Expanded(
+              child: TabBarView(
                 children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Center(
-                    child: MyBlinkingText(),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  _buildPhoto(context)
+                  PhotosPage(),
+                  HomeScreen(),
                 ],
+                controller: _tabController,
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 104,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0)),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Center(
+                      child: MyBlinkingText(),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    _buildPhoto(context)
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -158,15 +209,37 @@ class _HomePageState extends State<HomePage>
           photourl = url;
         }
         return Container(
-          height: 72,
+          height: 75,
           width: double.infinity,
           child: Image.network(
             photourl,
             fit: BoxFit.fill,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Padding(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                        : null,
+                  ),
+                ),
+              );
+            },
           ),
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _tabController.dispose();
+    super.dispose();
   }
 }
 
@@ -192,7 +265,7 @@ class _MyBlinkingTextState extends State<MyBlinkingText>
     return FadeTransition(
       opacity: _animationController,
       child: Text(
-        "TODAY\'S EXCLUSIVE",
+        "HIGHLIGHTS",
         style: TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w600,

@@ -21,65 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _initChannel() async {
     Channel channel = await APIService.instance
-        .fetchChannel(channelId: 'UCg7hGl39NU55D6jbqTWqvHQ');
+        .fetchChannel(channelId: 'UCr6CrBcvRJhULdDS1uYSaZw');
     setState(() {
       _channel = channel;
     });
   }
 
   _buildProfileInfo() {
-    return Container(
-      margin: EdgeInsets.all(20.0),
-      padding: EdgeInsets.all(20.0),
-      height: 100.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0, 1),
-            blurRadius: 6.0,
-          ),
-        ],
-      ),
-      child: Row(
-        children: <Widget>[
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 35.0,
-            backgroundImage: NetworkImage(_channel.profilePictureUrl),
-          ),
-          SizedBox(width: 12.0),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  _channel.title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                // Text(
-                //   '${_channel.subscriberCount} subscribers',
-                //   style: TextStyle(
-                //     color: Colors.grey[600],
-                //     fontSize: 16.0,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                //   overflow: TextOverflow.ellipsis,
-                // ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+    return Container();
   }
 
   _buildVideo(Video video) {
@@ -87,7 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => VideoScreen(id: video.id,title: video.title,),
+          builder: (_) => VideoScreen(
+            id: video.id,
+            title: video.title,
+          ),
         ),
       ),
       child: Container(
@@ -141,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.transparent,
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
               onNotification: (ScrollNotification scrollDetails) {
