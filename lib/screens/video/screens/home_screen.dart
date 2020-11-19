@@ -112,11 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     return _buildProfileInfo();
                   }
                   Video video = _channel.videos[index - 1];
-                  print(index-1);
                   return _buildVideo(video);
                 },
               ),
-
             )
           : Center(
               child: CircularProgressIndicator(
@@ -126,9 +124,5 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
     );
-  }
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
